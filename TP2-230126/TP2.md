@@ -26,7 +26,8 @@
         ``` 
         <br>
         - Trouver la ligne "Passerelle par défaut"
-        ![IMG](./Images/I-1-passerelle.png "./Images/I-1-passerelle.png")<br>
+        
+        ![IMG](./Images/I-1-passerelle.png) <br>
         - Ici : 10.33.79.254
 
 
