@@ -52,19 +52,16 @@
         font-family: 'Courier New', monospace;
       }
       
-      pre {
-        background: #2c3e50;
-        color: #ecf0f1;
+      .code-block {
+        background: #2c3e50 !important;
+        color: #ecf0f1 !important;
         padding: 15px;
         border-radius: 5px;
         overflow-x: auto;
         border-left: 4px solid #3498db;
-      }
-      
-      pre code {
-        background: transparent;
-        padding: 0;
-        color: #ecf0f1;
+        font-family: 'Courier New', monospace;
+        white-space: pre;
+        margin: 15px 0;
       }
 
       .titre p {
@@ -126,8 +123,8 @@
 
 <p>Création du fichier file_bin</p>
 
-<pre><code># Créer le fichier de 50 * 1ko soit 50ko
-dd if=/dev/urandom of=file_bin bs=1k count=50</code></pre>
+<div class="code-block"># Créer le fichier de 50 * 1ko soit 50ko
+dd if=/dev/urandom of=file_bin bs=1k count=50</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -135,18 +132,18 @@ dd if=/dev/urandom of=file_bin bs=1k count=50</code></pre>
 
 <p>Encodage en base64</p>
 
-<pre><code># Encoder le fichier en base 64
+<div class="code-block"># Encoder le fichier en base 64
 openssl base64 -e -in file_bin -out file_bin_b64
 
 # Lire le fichier
-cat file_bin_b64</code></pre>
+cat file_bin_b64</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part1/file_bin_b64-cat.png" alt="Résultat">
 
-<pre><code># Comparer les tailles des fichiers commençant par file_bin
-ls -l file_bin*</code></pre>
+<div class="code-block"># Comparer les tailles des fichiers commençant par file_bin
+ls -l file_bin*</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -154,11 +151,11 @@ ls -l file_bin*</code></pre>
 
 <p>On peut voir que le fichier encodé est plus lourd que le fichier de base d'environ 1/3.</p>
 
-<pre><code># Décoder le fichier
+<div class="code-block"># Décoder le fichier
 openssl base64 -d -in file_bin_b64 -out file_bin2
 
 # Comparaison de la taille (-s pour afficher un message quand c'est identique)
-diff -s file_bin file_bin2</code></pre>
+diff -s file_bin file_bin2</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -168,21 +165,21 @@ diff -s file_bin file_bin2</code></pre>
 
 <h3>2. AES (Chiffrement symétrique)</h3>
 
-<pre><code># Création du fichier message avec les mots contenant "ker"
-cat /usr/share/dict/words | grep ker | tr "\n" " " &gt;message
+<div class="code-block"># Création du fichier message avec les mots contenant "ker"
+cat /usr/share/dict/words | grep ker | tr "\n" " " >message
 
 # grep ker : filtre les lignes contenant "ker"
 # tr "\n" " " : remplace les sauts de ligne par des espaces
 # message : redirige le résultat vers un fichier nommé "message"
 
 # Afficher le contenu du fichier
-cat message</code></pre>
+cat message</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part1/message-create.png" alt="Résultat">
 
-<pre><code># Encoder le fichier message
+<div class="code-block"># Encoder le fichier message
 openssl enc -e -salt -in message -out message_c -aes256 -pbkdf2 -md sha256
 
 # enc : sous-commande pour le chiffrement/déchiffrement
@@ -192,23 +189,23 @@ openssl enc -e -salt -in message -out message_c -aes256 -pbkdf2 -md sha256
 # -out message_c : fichier de sortie chiffré
 # -aes256 : algorithme de chiffrement AES avec une clé de 256 bits
 # -pbkdf2 : utilise l'algorithme PBKDF2 pour dériver la clé
-# -md sha256 : utilise SHA-256 comme fonction de hachage</code></pre>
+# -md sha256 : utilise SHA-256 comme fonction de hachage</div>
 
 <p>Décodage du fichier</p>
 
-<pre><code># Décoder le fichier
+<div class="code-block"># Décoder le fichier
 openssl enc -d -in message_c -aes256 -pbkdf2 -md sha256
 
 # Affichage du contenu du fichier
-cat message_c</code></pre>
+cat message_c</div>
 
 <p>Encodage en base64</p>
 
-<pre><code># Encoder le fichier
+<div class="code-block"># Encoder le fichier
 openssl enc -e -a -salt -in message -out message_c2 -aes256 -pbkdf2 -md sha256
 
 # Affichage du contenu du fichier
-cat message_c2</code></pre>
+cat message_c2</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -218,7 +215,7 @@ cat message_c2</code></pre>
 
 <p>Génération d'une paire de clés RSA</p>
 
-<pre><code># Génération d'une paire de clés RSA
+<div class="code-block"># Génération d'une paire de clés RSA
 openssl genrsa -out cle_ynov.pem 2048
 
 # genrsa : génère une paire de clés RSA
@@ -226,35 +223,35 @@ openssl genrsa -out cle_ynov.pem 2048
 # 2048 : taille de la clé en bits
 
 # Affichage du contenu du fichier
-cat cle_ynov.pem</code></pre>
+cat cle_ynov.pem</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part1/C-cle_ynov.png" alt="Résultat">
 
-<pre><code>openssl rsa -in cle_ynov.pem -text -noout</code></pre>
+<div class="code-block">openssl rsa -in cle_ynov.pem -text -noout</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part1/C-cle_ynov-noout.png" alt="Résultat">
 
-<pre><code># Encoder le fichier de la clé privée
+<div class="code-block"># Encoder le fichier de la clé privée
 openssl rsa -in cle_ynov.pem -aes256 -out cle_ynov.pem
 
 # Exporter la clé publique
 openssl rsa -in cle_ynov.pem -pubout -out clepublique_ynov.pem
 
 # Afficher la clé
-cat clepublique_ynov.pem</code></pre>
+cat clepublique_ynov.pem</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part1/C-cle_publique.png" alt="Résultat">
 
-<pre><code># Visualiser les paramètres
+<div class="code-block"># Visualiser les paramètres
 openssl rsa -in clepublique_ynov.pem -pubin -text -noout
 
-# -pubin : indique que le fichier contient une clé publique</code></pre>
+# -pubin : indique que le fichier contient une clé publique</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -264,7 +261,7 @@ openssl rsa -in clepublique_ynov.pem -pubin -text -noout
 <strong>Observation :</strong> On peut voir que c'est une clé RSA de 2048 bits donc modulo 2048 et que l'exposant est de 65537.
 </div>
 
-<pre><code># On crée un fichier qui va être encodé
+<div class="code-block"># On crée un fichier qui va être encodé
 sudo nano pass_ynov
 
 # On l'encrypte avec la clé qu'on a créée
@@ -275,17 +272,17 @@ openssl pkeyutl -encrypt -in pass_ynov -inkey clepublique_ynov.pem -pubin -out p
 # -in pass_ynov : fichier contenant la donnée à chiffrer
 # -inkey clepublique_ynov.pem : clé publique utilisée
 # -pubin : indique que la clé d'entrée est une clé publique
-# -out pass_ynov_c : fichier de sortie pour les données chiffrées</code></pre>
+# -out pass_ynov_c : fichier de sortie pour les données chiffrées</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part1/C-chiffrer-cle.png" alt="Résultat">
 
-<pre><code># On décode le fichier
+<div class="code-block"># On décode le fichier
 openssl pkeyutl -decrypt -in pass_ynov_c -inkey cle_ynov.pem
 
 # -decrypt : déchiffre les données
-# -inkey cle_ynov.pem : utilise la clé privée</code></pre>
+# -inkey cle_ynov.pem : utilise la clé privée</div>
 
 <h2>II] Sans que je vous file les réponses à chaque étape</h2>
 
@@ -293,11 +290,11 @@ openssl pkeyutl -decrypt -in pass_ynov_c -inkey cle_ynov.pem
 
 <h4>1. Génération d'un fichier binaire</h4>
 
-<pre><code># Créer le fichier de 100ko
+<div class="code-block"># Créer le fichier de 100ko
 dd if=/dev/urandom of=data.bin bs=50k count=2
 
 # Afficher la taille des fichiers
-ls -l</code></pre>
+ls -l</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -305,18 +302,18 @@ ls -l</code></pre>
 
 <h4>2. Encodage</h4>
 
-<pre><code># Encoder le fichier en base 64
+<div class="code-block"># Encoder le fichier en base 64
 openssl base64 -e -in data.bin -out data.b64
 
 # Lire le fichier
-cat data.b64</code></pre>
+cat data.b64</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part2/chap1/2-encoder64.png" alt="Résultat">
 
-<pre><code># Regarder la taille
-ls -l</code></pre>
+<div class="code-block"># Regarder la taille
+ls -l</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -326,11 +323,11 @@ ls -l</code></pre>
 
 <h4>3. Décodage</h4>
 
-<pre><code># Décoder le fichier
+<div class="code-block"># Décoder le fichier
 openssl base64 -d -in data.b64 -out data_restored.bin
 
 # Comparaison
-diff -s data.bin data_restored.bin</code></pre>
+diff -s data.bin data_restored.bin</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -354,8 +351,8 @@ diff -s data.bin data_restored.bin</code></pre>
 
 <h4>1. Création d'un message</h4>
 
-<pre><code># Créer un fichier confidentiel.txt
-sudo nano confidentiel.txt</code></pre>
+<div class="code-block"># Créer un fichier confidentiel.txt
+sudo nano confidentiel.txt</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -363,11 +360,11 @@ sudo nano confidentiel.txt</code></pre>
 
 <h4>2. Chiffrement</h4>
 
-<pre><code># Encoder le fichier
+<div class="code-block"># Encoder le fichier
 openssl enc -e -salt -in confidentiel.txt -out confidentiel.enc -aes256 -pbkdf2 -md sha256
 
 # Affichage du contenu
-cat confidentiel.enc</code></pre>
+cat confidentiel.enc</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -375,11 +372,11 @@ cat confidentiel.enc</code></pre>
 
 <h4>3. Déchiffrement</h4>
 
-<pre><code># Décoder le fichier
+<div class="code-block"># Décoder le fichier
 openssl enc -d -salt -in confidentiel.enc -out confidentiel2.txt -aes256 -pbkdf2 -md sha256
 
 # Affichage du contenu
-cat confidentiel2.txt</code></pre>
+cat confidentiel2.txt</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -391,11 +388,11 @@ cat confidentiel2.txt</code></pre>
 
 <h4>4. Analyse</h4>
 
-<pre><code># Encodage du fichier
+<div class="code-block"># Encodage du fichier
 openssl enc -e -salt -in confidentiel.txt -out confidentiel2.enc -aes256 -pbkdf2 -md sha256
 
 # Vérifier les différences
-diff -s confidentiel.enc confidentiel2.enc</code></pre>
+diff -s confidentiel.enc confidentiel2.enc</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -426,28 +423,28 @@ diff -s confidentiel.enc confidentiel2.enc</code></pre>
 
 <h4>1. Génération de clés</h4>
 
-<pre><code># Génération de la clé privée
+<div class="code-block"># Génération de la clé privée
 openssl genrsa -out rsa_private.pem 2048
 
 # Exporter la clé publique
-openssl rsa -in rsa_private.pem -pubout -out rsa_public.pem</code></pre>
+openssl rsa -in rsa_private.pem -pubout -out rsa_public.pem</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part2/chap3/cle_prive-cle_public.png" alt="Résultat">
 
-<pre><code># Chiffrement de la clé privée
+<div class="code-block"># Chiffrement de la clé privée
 openssl rsa -in rsa_private.pem -aes256 -out rsa_private_p.pem
 
 # Affichage des paramètres de la clé privée
-openssl rsa -in rsa_private_p.pem -text -noout</code></pre>
+openssl rsa -in rsa_private_p.pem -text -noout</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part2/chap3/chiffrement_private.png" alt="Résultat">
 
-<pre><code># Affichage des paramètres de la clé publique
-openssl rsa -in rsa_public.pem -pubin -text -noout</code></pre>
+<div class="code-block"># Affichage des paramètres de la clé publique
+openssl rsa -in rsa_public.pem -pubin -text -noout</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -459,21 +456,21 @@ openssl rsa -in rsa_public.pem -pubin -text -noout</code></pre>
 
 <h4>2. Chiffrement asymétrique</h4>
 
-<pre><code># Créer le fichier secret.txt
-echo "Bonjour" &gt; secret.txt
+<div class="code-block"># Créer le fichier secret.txt
+echo "Bonjour" > secret.txt
 
 # Chiffrer avec la clé publique
-openssl pkeyutl -encrypt -in secret.txt -inkey rsa_public.pem -pubin -out secret.enc</code></pre>
+openssl pkeyutl -encrypt -in secret.txt -inkey rsa_public.pem -pubin -out secret.enc</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part2/chap3/cryptage-fichier.png" alt="Résultat">
 
-<pre><code># On déchiffre le fichier
+<div class="code-block"># On déchiffre le fichier
 openssl pkeyutl -decrypt -in secret.enc -out secret2.txt -inkey rsa_private_p.pem
 
 # On affiche le contenu du fichier déchiffré
-cat secret2.txt</code></pre>
+cat secret2.txt</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -504,14 +501,14 @@ cat secret2.txt</code></pre>
 
 <h4>1. Création et signature</h4>
 
-<pre><code># Créer le fichier contrat.txt
-echo "Vous êtes engagé" &gt; contrat.txt
+<div class="code-block"># Créer le fichier contrat.txt
+echo "Vous êtes engagé" > contrat.txt
 
 # Génération du hash
 openssl dgst -sha256 contrat.txt
 
 # Signer avec la clé privée
-openssl dgst -sha256 -sign rsa_private_p.pem -out contrat.sig contrat.txt</code></pre>
+openssl dgst -sha256 -sign rsa_private_p.pem -out contrat.sig contrat.txt</div>
 
 <div class="resultat">Résultat :</div>
 
@@ -519,18 +516,18 @@ openssl dgst -sha256 -sign rsa_private_p.pem -out contrat.sig contrat.txt</code>
 
 <h4>2. Vérification</h4>
 
-<pre><code># Vérifier la signature avec la clé publique
-openssl dgst -sha256 -verify rsa_public.pem -signature contrat.sig contrat.txt</code></pre>
+<div class="code-block"># Vérifier la signature avec la clé publique
+openssl dgst -sha256 -verify rsa_public.pem -signature contrat.sig contrat.txt</div>
 
 <div class="resultat">Résultat :</div>
 
 <img src="./Images/part2/chap3/verify_public.png" alt="Résultat">
 
-<pre><code># Modification du fichier contrat.txt
-echo "Félicitations" &gt;&gt; contrat.txt
+<div class="code-block"># Modification du fichier contrat.txt
+echo "Félicitations" >> contrat.txt
 
 # Vérifier à nouveau la signature
-openssl dgst -sha256 -verify rsa_public.pem -signature contrat.sig contrat.txt</code></pre>
+openssl dgst -sha256 -verify rsa_public.pem -signature contrat.sig contrat.txt</div>
 
 <div class="resultat">Résultat :</div>
 
