@@ -1,115 +1,8 @@
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #f5f5f5;
-  }
-  
-  h1 {
-    color: #2c3e50;
-    border-bottom: 4px solid #3498db;
-    padding-bottom: 10px;
-    margin-top: 30px;
-  }
-  
-  h2 {
-    color: #34495e;
-    border-left: 5px solid #3498db;
-    padding-left: 15px;
-    margin-top: 25px;
-    background: linear-gradient(to right, #ecf0f1, transparent);
-    padding: 10px 15px;
-  }
-  
-  h3 {
-    color: #16a085;
-    margin-top: 20px;
-  }
-  
-  h4 {
-    color: #7f8c8d;
-    font-style: italic;
-  }
+## **TP 2 - Vendredi 23 Janvier 2026** <br>
+**Fais sur une VM Fedora** <br>
+**Pierre BDL**
 
-  p {
-    color: black;
-  }
-  
-  code {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-family: 'Courier New', monospace;
-  }
-  
-  pre {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 15px;
-    border-radius: 5px;
-    overflow-x: auto;
-    border-left: 4px solid #3498db;
-  }
-  
-  pre code {
-    background: transparent;
-    padding: 0;
-  }
-
-  .titre p {
-    background: transparent;
-    font-size: 20px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .resultat {
-    background: #d5f4e6;
-    border: 2px solid #27ae60;
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px 0;
-    font-weight: bold;
-  }
-  
-  .commande {
-    background: #fff3cd;
-    border-left: 4px solid #f39c12;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 0 5px 5px 0;
-  }
-  
-  .note {
-    background: #e8f4f8;
-    border: 2px dashed #3498db;
-    padding: 15px;
-    border-radius: 5px;
-    margin: 15px 0;
-    text-align: center;
-  }
-  
-  img {
-    max-width: 100%;
-    border: 2px solid #bdc3c7;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    margin: 10px 0;
-  }
-</style>
-
-<div class="note titre">
-
-TP 3 - Vendredi 13 Février 2026 <br>
-Fais sur une VM Fedora <br>
-Pierre BDL
-
-</div>
+---
 
 ## I] Exploration en solo
 
@@ -122,10 +15,7 @@ Création du fichier file_bin
 dd if=/dev/urandom of=file_bin bs=1k count=50
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/file_bin-create.png)
 
 Encodage en base64
@@ -138,10 +28,7 @@ openssl base64 -e -in file_bin -out file_bin_b64
 cat file_bin_b64
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/file_bin_b64-cat.png)
 
 
@@ -150,10 +37,7 @@ Résultat :
 ls -l file_bin*
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/difference_taille.png)
 
 On peut voir que le fichier encodé est plus lourd que le fichier de base d'environ 1/3.
@@ -166,10 +50,7 @@ openssl base64 -d -in file_bin_b64 -out file_bin2
 diff -s file_bin file_bin2
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/decodage.png)
 
 On peut voir que les fichier file_bin et file_bin2 sont identiques.
@@ -190,10 +71,7 @@ cat /usr/share/dict/words | grep ker  | tr "\n" " " >message
 cat message
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/message-create.png)
 
 ``` bash
@@ -230,10 +108,7 @@ openssl enc -e -a -salt -in message -out message_c2 -aes256 -pbkdf2 -md sha256
 cat message_c2
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/cat_message_c2.png)
 
 ### 1. RSA (Chiffrement asymétrique)
@@ -253,20 +128,14 @@ openssl genrsa -out cle_ynov.pem 2048
 cat cle_ynov.pem
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1//C-cle_ynov.png)
 
 ``` bash
 openssl rsa -in cle_ynov.pem -text -noout
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/C-cle_ynov-noout.png)
 
 
@@ -281,10 +150,7 @@ openssl rsa -in cle_ynov.pem -pubout -out clepublique_ynov.pem
 cat clepublique_ynov.pem
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/C-cle_publique.png)
 
 ``` bash
@@ -294,15 +160,10 @@ openssl rsa -in clepublique_ynov.pem -pubin -text -noout
 # -pubin : indique que le fichier d'entrée contient une clé publique et non une clé privée
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/C-modulo-cle_publique.png)
 
-<div class="note">
-<strong> Observation </strong> On peut voir que c'est une clé RSA de 2048 bit donc modulo 2048 et que l'exposant est de 65537 qui permet e vérifier la clé.
-</div>
+On peut voir que c'est une clé RSA de 2048 bit donc modulo 2048 et que l'exposant est de 65537 qui permet e vérifier la clé.
 
 ``` bash
 # On créer un fichier qui va être encodé
@@ -319,10 +180,7 @@ openssl pkeyutl -encrypt -in pass_ynov -inkey clepublique_ynov.pem -pubin -out p
 # -out pass_ynov_c : fichier de sortie pour les données chiffrées
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part1/C-chiffrer-cle.png)
 
 ``` bash
@@ -347,10 +205,7 @@ dd if=/dev/urandom of=data.bin bs=50k count=2
 ls -l
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap1/creation_fichier.png)
 
 #### 2. Encodage
@@ -363,10 +218,7 @@ openssl base64 -e -in data.bin -out data.b64
 cat data.b64
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap1/2-encoder64.png)
 
 ``` bash
@@ -374,10 +226,7 @@ Résultat :
 ls -l
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap1/2-encoder64-taille.png)
 
 On peut voir que le fichier encoder fait environ 1/3 de poids en plus que le fichier source
@@ -392,10 +241,7 @@ openssl base64 -d -in data.b64 -out data_restored.bin
 diff -s data.bin data_restored.bin
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap1/3-diff.png)
 
 #### 4. Questions
@@ -421,10 +267,7 @@ Résultat :
 sudo nano confidentiel.txt
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap2/confidentiel-txt.png)
 
 #### 2. Chiffrement
@@ -437,10 +280,7 @@ openssl enc -e -salt -in confidentiel.txt -out confidentiel.enc -aes256 -pbkdf2 
 cat confidentiel.enc
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap2/cat-confidentiel-encode.png)
 
 
@@ -454,15 +294,10 @@ openssl enc -d -salt -in confidentiel.enc -out confidentiel2.txt -aes256 -pbkdf2
 cat confidentiel.enc
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap2/confidentiel-decode.png)
 
-<div class="note">
-<strong> Observation </strong> On peut voir que le contenu est identique à ce qui est dans confidentiel.txt.
-</div>
+On peut voir que le contenu est identique à ce qui est dans confidentiel.txt.
 
 #### 4. Analyse
 
@@ -474,15 +309,10 @@ openssl enc -e -salt -in confidentiel.txt -out confidentiel2.enc -aes256 -pbkdf2
 diff -s confidentiel.enc confidentiel2.enc
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap2/rechifrage-diff.png)
 
-<div class="note">
-<strong> Observation </strong> On peut voir que le chiffrement diffère même avec le même mot de passe. Donc lors du chiffrement, les clé sont uniques via le salt et PBKDF2.
-</div>
+On peut voir que le chiffrement diffère même avec le même mot de passe. Donc lors du chiffrement, les clé sont uniques via le salt et PBKDF2.
 
 #### 5. Questions
 
@@ -513,10 +343,7 @@ openssl genrsa -out rsa_private.pem 2048
 openssl rsa -in rsa_private.pem -pubout -out rsa_public.pem
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap3/cle_prive-cle_public.png)
 
 ``` bash
@@ -527,10 +354,7 @@ openssl rsa -in rsa_private.pem -aes256 -out rsa_private_p.pem
 openssl rsa -in rsa_private_p.pem -text -noout
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap3/chiffrement_private.png)
 
 ``` bash
@@ -538,15 +362,10 @@ Résultat :
 openssl rsa -in rsa_public.pem -pubin -text -noout
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap3/parametres-public.png)
 
-<div class="note">
-<strong> Observation </strong> Dans la clé privée, qui a été chiffré, il y a le modulo, l'exposant publique, l'exposant privé, le coefficient tandis que dans la clé publique, il n'y a que le modulo et l'exposant. La clé publique n'a que pour fonction de chiffrer le données mais ne doit pas faire l'inverse. Au contraire, la clé privée doit pouvoir tout faire (chiffrer, déchiffrer) donc elle a besoin de plus de choses.
-</div>
+> Dans la clé privée, qui a été chiffré, il y a le modulo, l'exposant publique, l'exposant privé, le coefficient tandis que dans la clé publique, il n'y a que le modulo et l'exposant. La clé publique n'a que pour fonction de chiffrer le données mais ne doit pas faire l'inverse. Au contraire, la clé privée doit pouvoir tout faire (chiffrer, déchiffrer) donc elle a besoin de plus de choses.
 
 #### 2. Chiffrement asymétrique
 
@@ -558,10 +377,7 @@ echo "Bonjour" > secret.txt
 openssl pkeyutl -encrypt -in secret.txt -inkey rsa_public.pem -pubin -out secret.enc
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap3/cryptage-fichier.png)
 
 ``` bash
@@ -572,15 +388,10 @@ openssl pkeyutl -decrypt -in secret.enc -out secret2.txt -inkey rsa_private_p.pe
 cat secret2.txt
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap3/dechiffre-fichier.png)
 
-<div class="note">
-<strong> Observation </strong> On peut voir que le coontenu a bien été déchiffré et nous donne bien le bon résultat à savoir ("Bonjour")
-</div>
+> On peut voir que le coontenu a bien été déchiffré et nous donne bien le bon résultat à savoir ("Bonjour")
 
 #### 3. Questions
 
@@ -614,10 +425,7 @@ openssl dgst -sha256 contrat.txt
 openssl dgst -sha256 -sign rsa_private_p.pem -out contrat.sig contrat.txt
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap3/hash.png)
 
 #### 2. Vérification
@@ -627,10 +435,7 @@ Résultat :
 openssl dgst -sha256 -verify rsa_public.pem -signature contrat.sig contrat.txt
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap3/verify_public.png)
 
 ``` bash
@@ -641,15 +446,10 @@ echo "Félicitations" >> contrat.txt
 openssl dgst -sha256 -verify rsa_public.pem -signature contrat.sig contrat.txt
 ```
 
-<div class="resultat">
 Résultat :
-</div>
-
 ![](/TP3-130226/Images/part2/chap3/contrat-modif.png)
 
-<div class="note">
-<strong> Observation </strong> On peut voir que la signature n'est plus la même car le fichier contrat.txt a été modifié.
-</div>
+> On peut voir que la signature n'est plus la même car le fichier contrat.txt a été modifié.
 
 #### 3. Questions
 
