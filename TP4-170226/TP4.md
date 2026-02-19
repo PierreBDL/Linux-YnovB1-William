@@ -1,5 +1,5 @@
-## **TP 2 - Vendredi 23 Janvier 2026** <br>
-**Fais sur une VM Fedora** <br>
+## **TP 2 - Mardi 17 Février** <br>
+**Fais sur une VM Ubuntu** <br>
 **Pierre BDL**
 
 ---
