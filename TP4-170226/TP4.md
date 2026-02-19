@@ -239,6 +239,7 @@ sudo ss -tlnp | grep apache2
 ![](/TP4-170226/Images/Partie6/verif-traffic.png)
 
 Résultat :
+
 ![](/TP4-170226/Images/Partie6/site-apache.png)
 
 2. 
@@ -340,6 +341,7 @@ curl -k https://10.151.168.93
 ```
 
 Résultat :
+
 ![](/TP4-170226/Images/Partie7/resultat-ssl.png)
 ![](/TP4-170226/Images/Partie7/resultat-ssl-web.png)
 
@@ -363,6 +365,7 @@ chmod -R 755 /var/www/site-tp
 ```
 
 Résultat :
+
 ![](/TP4-170226/Images/Partie8/status-ufw.png)
 
 
