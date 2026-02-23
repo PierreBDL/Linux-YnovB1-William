@@ -20,7 +20,7 @@ On ping la VM depuis l'hôte
 
 1. 
 ``` bash
-# Mis à jour des paquets
+# Mise à jour des paquets
 sudo apt update -y
 sudo apt upgrade -y
 
@@ -146,7 +146,7 @@ ssh vm
 - SCP
 
 ``` bash
-# Transfer du fichier avec SCP
+# Transfert du fichier avec SCP
 scp '.\Desktop\YNOV\Sauvegarder infos git.txt' vm:/home/pierre
 ```
 
@@ -218,7 +218,7 @@ Je me suis bien fait bannir
 # On créait un tunnel local pour accèder au site d'apache
 ssh -L 8080:localhost:80 vm
 
-# Mis à jour des paquets
+# Mise à jour des paquets
 sudo apt update -y
 sudo apt upgrade -y
 
@@ -245,14 +245,14 @@ Résultat :
 2. 
 
 ``` bash
-# On créer le tunel distant pour le port 22 (ssh)
+# On créer le tunnel distant pour le port 22 (ssh)
 ssh -R 9090:localhost:22 vm
 ```
 
 ## Partie 7 – Nginx et HTTPS
 
 ``` bash
-# Mis à jour des paquets
+# Mise à jour des paquets
 sudo apt update -y
 sudo apt upgrade -y
 
