@@ -1,5 +1,5 @@
-## **TP 2 - Vendredi 23 Janvier 2026** <br>
-**Fais sur une VM pfSense** <br>
+## **TP 2 - Vendredi 20 Février 2026** <br>
+**Fais sur une VM pfSense et 2 VMs Ubuntu** <br>
 **Pierre BDL**
 
 ---
@@ -21,7 +21,7 @@
 ![](/TP5-190226/Images/Partie1/ip.png)
 
 3. Pourquoi utilise-t-on HTTPS ?
-> Pour sécuriser les données qui circulent entre laa VM pfsense et le navigateur web sur l'hôte.
+> Pour sécuriser les données qui circulent entre la VM pfsense et le navigateur web sur l'hôte.
 
 4. Pourquoi faut-il changer les identifiants par défaut sur un pare-feu ?
 > Car les mots de passe par défaut ne sont pas sécurisés; en effet, si deux utilisateurs installent pfsense, les mots de passe seront les mêmes donc ça ouvre la voie à du piratage. De plus, ce serait ironique que le pare-feu, qui protège tout le réseau, se fasse pirater à cause d'un mot de passe non sécurisé.
@@ -52,7 +52,7 @@
 - Questions :
 
 1. Quelle interface permet l’accès Internet ?
-> L'interface WAN (Word Area Network) donc l'interface avec l'adresse 10.0.2.15/24.
+> L'interface WAN (Wide Area Network) donc l'interface avec l'adresse 10.0.2.15/24.
 
 2. Quelle interface correspond au réseau interne ?
 > L'interface LAN (Local Area Network) donc l'interface avec l'adresse 192.168.56.101/24.
@@ -77,13 +77,13 @@ On fait comme au début : on change l'adresse de la vm pfsense mais on met une a
 - Questions :
 
 1. Pourquoi utiliser DHCP plutôt qu’une IP fixe ?
-> Comme ça, on n'a pas besoin de configurer les adresses à chaque fois qu'il y a un nouvel appareil. Ca évite aussi les risques de conflit (deux appareils avec la même adresse).
+> Comme ça, on n'a pas besoin de configurer les adresses à chaque fois qu'il y a un nouvel appareil. Ça évite aussi les risques de conflit (deux appareils avec la même adresse).
 
 2. Quelle plage d’adresses choisir ?
 > Les adresses entre 192.168.56.100/24 et 192.168.56.200/24.
 
 3. Quelles adresses faut-il éviter d’inclure dans la plage ?
-> Les adresses telles que : 192.168.56.0, 192.168.56.254, 192.168.56.255 et celle de pfsense (192.168.56.99).
+> Les adresses telles que : 192.168.56.0 (réseau), 192.168.56.254, 192.168.56.255 (broadcast) et celle de pfsense (192.168.56.99).
 
 - Vérification :
 
@@ -145,10 +145,10 @@ Résultat :
 > La source doit être le LAN car les requêtes sont effectuées par les machines du LAN.
 
 2. Quelle doit être la destination ?
-> La destination doit être le WAN car les requêtes sont pour des ip externes au LAN. Sur la règle, ce doit être any car on ne sais pas à quoi resesemble le réseau de destination.
+> La destination doit être le WAN car les requêtes sont pour des ip externes au LAN. Sur la règle, ce doit être any car on ne sait pas à quoi ressemble le réseau de destination.
 
 3. Faut-il autoriser tous les protocoles ?
-> Non, pour le dns, on peut juste autoriser l'UDP. Accepter tout les protocoles peut nuir à la sécurité et augmenter le nombre de failles. Il vaut mieux donner le strict minimum.
+> Non, pour le dns, on peut juste autoriser l'UDP. Accepter tous les protocoles peut nuire à la sécurité et augmenter le nombre de failles. Il vaut mieux donner le strict minimum.
 
 - Test :
 
@@ -182,7 +182,7 @@ Pour voir la configuration, il faut aller dans Firewall>NAT>Outbound
 - Questions :
 
 1. Pourquoi le NAT est-il nécessaire avec une interface WAN en NAT ?
-> Déjà qu'on manque d'adresse IPV4, si on n'avait pas de NAT, le nombre d'appareils pouvant se connecter à Internet serait de 4,3 milliards en comptant les PC, les téléphones, les serveurs, etc. Le NAT est donc nécessaire pour avoir une IPV4, car ça permet à la box, ici pfsense, d'avoir un réseau local avec les appareils de la maison et une adresse publique pour communiquer sur Internet. C'est donc nécessaire pour pouvoir avoir un accès à Internet.
+> Déjà qu'on manque d'adresse IPV4, si on n'avait pas de NAT, le nombre d'appareils pouvant se connecter, avec une IPV4, à Internet serait de 4,3 milliards en comptant les PC, les téléphones, les serveurs, etc. Le NAT est donc nécessaire pour avoir une IPV4, car ça permet à la box, ici pfsense, d'avoir un réseau local avec les appareils de la maison et une adresse publique pour communiquer sur Internet. C'est donc nécessaire pour pouvoir avoir un accès à Internet.
 
 2. Quelle est la différence entre NAT automatique et manuel ?
 > En manuel, on peut interdire certains réseaux de se connecter à Internet tandis que l'automatique permet d'autoriser toutes les sorties.
@@ -211,7 +211,7 @@ Résultat :
 > Par nom de domaine car le site peut être migré sur un autre serveur avec une nouvelle IP donc le blocage ne sera pas efficace. De plus, des gros sites, qui sont fréquentés par beaucoup de monde, sont hébergés sur plusieurs serveurs avec des IP différentes, mais avec un même nom de domaine donc bloquer l'IP ne servirait à rien. Enfin, on peut utiliser un VPN pour contourner le pare-feu et donc le blocage.
 
 2. Que se passe-t-il si le site utilise HTTPS ?
-> Lorsque l'utilisateur tente de se connecter au site en http, le site affiche "La connexion a été réinitialisé" tandis qu'en https, le site affiche "Impossible de se connecter".
+> Lorsque l'utilisateur tente de se connecter au site en http, le site affiche "La connexion a été réinitialisée" tandis qu'en https, le site affiche "Impossible de se connecter".
 ![](/TP5-190226/Images/Partie5/question2.png)
 
 3. Pourquoi le blocage par IP peut-il être contourné ?
@@ -235,13 +235,13 @@ Résultat :
 - Questions :
 
 1. Pourquoi ne pas créer une règle par site ?
-> Sinon, on devrait avoir autant de règles que de site qu'on veut bloquer. Donc pour éviter le bazar et le fait que ce soit long et pénible à faire, on fait un alias où on peut juste rajouter le site. En plus, c'est trier par catégories (Exemple : "Jeux-Argent") donc c'est plus facile pour la gestion.
+> Sinon, on devrait avoir autant de règles que de site qu'on veut bloquer. Donc pour éviter le bazar et le fait que ce soit long et pénible à faire, on fait un alias où on peut juste rajouter le site. En plus, c'est trié par catégories (Exemple : "Jeux-Argent") donc c'est plus facile pour la gestion.
 
 2. Où se créent les alias ?
 > On va dans Firewall puis dans Aliases.
 
 3. Comment vérifier qu’une règle bloque réellement le trafic ?
-> On va sur une machine du réseau et on tente d'accèder à un site bloquer avec un ping :
+> On va sur une machine du réseau et on tente d'accèder à un site bloqué avec un ping :
 ![](/TP5-190226/Images/Partie5/winamax-bloque.png)
 
 
@@ -268,7 +268,7 @@ Logs disponibles dans Status > System Logs > Firewall > Normal View :
 - Question :
 
 1. Que se passe-t-il si la règle est placée sous une règle "Pass Any" ?
-> Si c'est le cas, "Pass any" est prioritaire et va laisser passer la requête.
+> Si c'est le cas, "Pass any" est prioritaire et autorisera la requête.
 
 
 ### 11. Règles horaires
@@ -294,58 +294,176 @@ Puisqu'il est 16h, on peut se connecter à instagram :
 
 ### 12. Serveur web local
 
+- Sur la VM Ubuntu 2
 
+``` bash
+# On définit la passerelle par défaut pour accèder à internet
+sudo ip route add default via 192.168.56.99
 
+# Je met pfsense en DNS
+sudo nano /etc/resolv.conf
 
+# On ajoute
+nameserver 192.168.56.99
 
+# Mise à jour des paquets
+sudo apt update -y
+sudo apt upgrade -y
 
+# J'installe nginx pour héberger le site
+sudo apt install nginx -y
+```
 
+- PFSense
+
+Configuration du calendrier :
+
+![](/TP5-190226/Images/Partie6/calendrier-site.png)
+
+Création de la règle :
+
+![](/TP5-190226/Images/Partie6/regle-site.png)
+![](/TP5-190226/Images/Partie6/calendrier-rule-site.png)
+![](/TP5-190226/Images/Partie6/site-rule-general.png)
+
+Résultat :
+
+![](/TP5-190226/Images/Partie6/site-autorise.png)
 
 - Questions :
 
 1. Filtrer par IP source ?
-> 
+> C'est pour éviter que n'importe qui accède au site. C'est donc pour la sécurité.
 
 2. Filtrer par port ?
-> 
+> C'est un site web, il n'y a pas besoin que d'autres ports soient ouvert autre que le 80.
 
 3. Pourquoi le pare-feu protège-t-il le LAN même en réseau interne ?
-> 
+> On n'est jamais à l'abri d'une propagation d'un virus. Si quelqu'un branche une clé usb infectée, il risque moins d'infecter les autres machines. De plus, c'est une garantie que quelqu'un en interne ne casse pas tout en faisant une fausse manœuvre.
+
+### 13. Logs et analyse
+
+On active l'option pour voir les logs :
+
+![](/TP5-190226/Images/Partie6/logs-jeux-argent.png)
+
+![](/TP5-190226/Images/Partie6/journalisation-active.png)
+
+- Sur la VM1 :
+
+``` bash
+# Tenter de se connecter à winamax
+wget http://winamax.fr
+```
+
+![](/TP5-190226/Images/Partie6/ping-winamax.png)
+
+![](/TP5-190226/Images/Partie6/jeux-argent-bloque.png)
 
 
+- Questions :
+
+1. Différence entre paquet bloqué et autorisé
+> Dans les logs, les paquets bloqués sont avec une croix rouge et ne sont pas autorisés à passer pfsense tandis que les paquets autorisés sont avec une coche verte et peuvent passer.
+
+2. Identifier quelle règle a déclenché le blocage
+> Il y a une colonne rule qui permet de voir la règle. Par exemple, dans l'image ci-dessous, c'est la règle "Jeux d'argent" qui a bloqué les paquets.
+![](/TP5-190226/Images/Partie6/jeux-argent-bloque.png)
+
+3. Comprendre le sens du trafic
+> Il y a les colonnes source et destination qui permettent de voir le sens. De plus, avec l'interface, on peut également savoir le sens. Si l'interface est LAN, alors les paquets viennent des VMs locales.
 
 
+### 14. DMZ
+
+- Questions :
+
+1. Qu'est ce qu'une DMZ ?
+> Une DMZ (zone démilitarisée) est un morceau du réseau qui est accessible depuis l'extérieur. C'est une zone isolée du reste du réseau qui permet aux entreprises qui ont un site web, par exemple, d'éviter que les visiteurs malveillants, aillent sur leur réseau interne. C'est donc une sorte de réseau public dans un réseau privé.
+
+2. Pourquoi isoler un serveur ?
+> Pour éviter qu'un visiteur malveillant ne se balade dans le réseau privé de l'entreprise où passe, éventuellement, des données sensibles. C'est une mesure de sécurité.
+
+3. Une machine en DMZ peut-elle accéder au LAN ?
+> Non, car la machine dans la DMZ est exposée. Donc, si elle se fait infecter et qu'elle est liée au LAN, elle va contaminer tout le monde. Donc il vaut mieux éviter même si c'est possible.
+
+4. Le LAN peut-il accéder librement à la DMZ ?
+> Oui, si on reprend l'exemple du site web, il faut que les développeurs puissent mettre à jour le site web donc il vont connecter leur PC (sur le LAN) au serveur (dans la DMZ).
 
 
+### 15. Filtrage MAC
+
+On regarde l'adresse MAC de la VM1 Ubuntu :
+
+![](/TP5-190226/Images/Partie6/MAC-adresse.png)
+
+On va sur Services > DHCP Server > LAN > Edit Static Mapping
+
+![](/TP5-190226/Images/Partie6/Mac-configure.png)
+
+![](/TP5-190226/Images/Partie6/mac-dhcp.png)
 
 
+- Question :
+
+1. Le filtrage MAC est-il réellement sécurisé ?
+> Non, il n'est pas robuste, il permet de faire en sorte d'avoir toujours la même IP sur le même équipement. Par exemple, pour une imprimante dans une entreprise, cela permet de ne pas avoir à chercher l'IP tout le temps.
+
+2. Pourquoi est-il facilement contournable ?
+> L'adresse MAC apparaît en clair lors des échanges ce qui n'est pas sécurisé. Donc, un pirate avec un logiciel comme Wireshark peut faire une attaque contre un matériel précis sans difficulté. Enfin, l'adresse mac est "unique" donc si un pirate l'a, c'est un peu comme s'il connaissait la carte d'identité de la carte réseau et donc de l'ordinateur.
 
 
+### 16. Portail captif
+
+On configure le portail dans Services > Captive Portal:
+
+![](/TP5-190226/Images/Partie6/Captive_Portal-name.png)
+![](/TP5-190226/Images/Partie6/Captive_Portal-config1.png)
+![](/TP5-190226/Images/Partie6/Captive_Portal-config2.png)
+
+Résultat :
+
+![](/TP5-190226/Images/Partie6/captive_portal-result.png)
+
+Je peux ensuite utiliser internet :
+
+![](/TP5-190226/Images/Partie6/captive_portal-result1.png)
+
+- Questions :
+
+1. Dans quels contextes utilise-t-on cela ?
+> Sur du wifi public, car ça permet à l'utilisateur de connaître toutes les règles à suivre pour utiliser le wifi (Conditions Générales d'utilisation). Ça permet aussi d'authentifier les utilisateurs pour leur donner des droits différents (débit).
+
+2. Quelle(s) avantage(s) avec une simple règle de pare-feu ?
+> Contrairement aux règles, le portail captif permet de mieux contrôler les utilisateurs comme les obliger à accepter les CSG (Conditions Générales d'utilisation) ou alors à les obliger à se connecter à un compte par exemple. Il est donc plus facile de gérer les utilisateurs contrairement aux règles où c'est plus l'anarchie.
+
+### 17. Sauvegarde / restauration
+
+Pour sauvegarder, on va dans Diagnostics > Backup & Restore > Backup & Restore :
+
+![](/TP5-190226/Images/Partie6/sauvegarde.png)
+
+On modifie les configs :
+
+![](/TP5-190226/Images/Partie6/sauvegarde-modif1.png)
+![](/TP5-190226/Images/Partie6/sauvegarde-modif2.png)
+
+On voit bien que les modifications ont été effectuées :
+![](/TP5-190226/Images/Partie6/sauvegarde-modif2-result.png)
+
+Pour restorer, on retourne dans Diagnostics > Backup & Restore > Backup & Restore :
+![](/TP5-190226/Images/Partie6/sauvegarde-restore.png)
+
+Résultat :
+
+![](/TP5-190226/Images/Partie6/sauvegarde-restore1.png)
+![](/TP5-190226/Images/Partie6/sauvegarde-restore2.png)
 
 
+- Question :
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+1. Pourquoi la sauvegarde régulière est-elle essentielle en production ?
+> Un bug ou un virus est vite arrivé et, dans ces moments-là, il faut réussir à remettre tout en place le plus vite possible donc il vaut mieux avoir une sauvegarde à charger en quelques secondes plutôt qu'un service non-fonctionnel pendant des heures.
 
 
 
