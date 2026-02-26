@@ -407,10 +407,10 @@ On va sur Services > DHCP Server > LAN > Edit Static Mapping
 - Question :
 
 1. Le filtrage MAC est-il réellement sécurisé ?
-> Non, il n'est pas robuste, il permet de faire en sorte d'avoir toujours la même IP sur le même équipement. Par exemple, pour une imprimante dans une entreprise, cela permet de ne pas avoir à chercher l'IP tout le temps.
+> Non, il n'est pas robuste, il permet de faire en sorte d'avoir toujours la même IP sur le même équipement et de le laisser passer sur le réseau. Par exemple, pour une imprimante dans une entreprise, cela permet de ne pas avoir à chercher l'IP tout le temps. Le problème est que l'adresse mac est usurpable facilement donc quelqu'un peut avoir tous les droits en usurpant une adresse MAC.
 
 2. Pourquoi est-il facilement contournable ?
-> L'adresse MAC apparaît en clair lors des échanges ce qui n'est pas sécurisé. Donc, un pirate avec un logiciel comme Wireshark peut faire une attaque contre un matériel précis sans difficulté. Enfin, l'adresse mac est "unique" donc si un pirate l'a, c'est un peu comme s'il connaissait la carte d'identité de la carte réseau et donc de l'ordinateur.
+> L'adresse MAC apparaît en clair lors des échanges ce qui n'est pas sécurisé. Donc, un pirate avec un logiciel comme Wireshark peut faire une attaque contre un matériel précis sans difficulté. De plus, l'adresse mac est "unique" donc si un pirate l'a, c'est un peu comme s'il connaissait la carte d'identité de la carte réseau et donc de l'ordinateur. Enfin, il peut usurper l'identité de l'appareil et avoir tous les droits de l'appareil usurpé.
 
 
 ### 16. Portail captif
