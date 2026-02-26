@@ -103,7 +103,7 @@
 
 <div class="note titre">
 
-TP 2 - Vendredi 23 Janvier 2026 <br>
+TP 3 - Vendredi 23 Janvier 2026 <br>
 Fais sur une VM Fedora
 
 </div>
